@@ -6,9 +6,18 @@ import { Card, Row, Col, Input } from "antd";
 import { useGetCryptosQuery } from "../services/cryptoApi";
 
 const Cryptocurrencies = ({ simplified }) => {
-  const count = simplified ? 10 : 100;
+  const count = simplified ? 12 : 100;
   const { data: cryptosList, isFetching } = useGetCryptosQuery(count);
-  const [cryptos, setCryptos] = useState(cryptosList?.data?.coins);
+  const [cryptos, setCryptos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const filteredData = cryptosList?.data?.coins.filter((coin) =>
+      coin.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    setCryptos(filteredData);
+  }, [cryptosList, searchTerm]);
 
   console.log(cryptos);
 
@@ -16,6 +25,14 @@ const Cryptocurrencies = ({ simplified }) => {
 
   return (
     <>
+      {!simplified && (
+        <div classname="search-crypto">
+          <Input
+            placeholder="Search"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      )}
       <Row gutter={[32, 32]} className="crypto-card-container">
         {cryptos?.map((currency) => (
           <Col xs={24} sm={12} lg={6} className="crypto-card" key={currency.id}>
@@ -24,7 +41,7 @@ const Cryptocurrencies = ({ simplified }) => {
                 title={`${currency.rank}. ${currency.name}`}
                 extra={
                   <img
-                    width="50"
+                    width="40"
                     classname="crypto-image"
                     src={currency.iconUrl}
                   />
