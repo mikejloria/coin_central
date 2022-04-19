@@ -4,6 +4,7 @@ import moment from "moment";
 
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import Loader from "./Loader";
 
 const demoImage = "";
 
@@ -21,7 +22,7 @@ const News = ({ simplified }) => {
 
   console.log(cryptoNews);
 
-  if (!cryptoNews?.value) return "Loading...";
+  if (!cryptoNews?.value) return <Loader />;
 
   return (
     <Row gutter={[24, 24]}>
@@ -48,8 +49,8 @@ const News = ({ simplified }) => {
         <Col xs={24} sm={12} lg={8} key={i}>
           <Card hoverable className="news-card">
             <a href={news.url} target="_blank" rel="noreferrer">
-              <div classname="news-image-container">
-                <Title classname="news-title" level={4}>
+              <div className="news-image-container">
+                <Title className="news-title" level={4}>
                   {news.name}
                 </Title>
                 <img
@@ -63,7 +64,7 @@ const News = ({ simplified }) => {
                   ? `${news.description.substring(0, 100)}...`
                   : news.description}
               </p>
-              <div classname="provider-container">
+              <div className="provider-container">
                 <div>
                   <Avatar
                     src={
