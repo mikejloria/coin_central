@@ -1,1 +1,3 @@
-# Cryptocurrency Data
+# Cryptocurrency Web Application
+
+[alt text](assets/readmecover.jpeg)
