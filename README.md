@@ -1,3 +1,3 @@
 # Cryptocurrency Web Application
 
-[alt text](assets/readmecover.jpeg)
+![alt text](assets/readmecover.jpeg)
